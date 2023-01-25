@@ -1,0 +1,26 @@
+<div *ngIf="companyDetails$ | async as companyDetails">
+  <h1>{{ companyDetails.name }}</h1>
+  <h2>{{ companyDetails.address }}</h2>
+  <p *ngIf="companyDetails.phones.length">Phones: {{ companyDetails.phones | displayPhones }}</p>
+</div>
+<hr />
+<div *ngIf="!invoices || !invoices.length">No items</div>
+<div *ngIf="invoices && invoices.length">
+  <table>
+    <tr>
+      <th>#</th>
+      <th>Item</th>
+      <th>Count</th>
+      <th>Price</th>
+    </tr>
+    <tr *ngFor="let invoice of invoices; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ invoice.name }}</td>
+      <td>{{ invoice.count }}</td>
+      <td>{{ invoice.price }}</td>
+    </tr>
+    <tr>
+      <td colspan="4" class="text-align-right">Sum: {{ invoices | sumInvoices }}</td>
+    </tr>
+  </table>
+</div>

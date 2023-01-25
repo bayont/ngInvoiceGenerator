@@ -1,4 +1,9 @@
 <mat-sidenav-container class="full-height">
-  <mat-sidenav mode="side" opened> <app-menu></app-menu> </mat-sidenav>
-  <mat-sidenav-content> <router-outlet></router-outlet></mat-sidenav-content>
+  <mat-sidenav class="navigation-bar" mode="side" opened> <app-menu></app-menu> </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">ngInvoiceGenerator</mat-toolbar>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
 </mat-sidenav-container>

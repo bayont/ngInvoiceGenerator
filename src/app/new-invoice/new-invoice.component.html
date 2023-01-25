@@ -1,1 +1,49 @@
-<p>new-invoice works!</p>
+<div *ngIf="!invoicesArr.length">Please add items</div>
+<form [formGroup]="invoiceForm">
+  <div formArrayName="invoices">
+    <div
+      *ngFor="let invoice of invoicesArr.controls; let i = index"
+      [formGroup]="invoice"
+      class="invoice"
+    >
+      <mat-form-field *ngIf="invoice.controls?.['name'] as name">
+        <mat-label>Name</mat-label>
+        <input matInput name="name" formControlName="name" type="text" />
+        <mat-error *ngIf="name.errors?.['minlength']">Min 3 characters</mat-error>
+        <mat-error *ngIf="name.errors?.['maxlength']">Max 30 characters</mat-error>
+        <mat-error *ngIf="name.errors?.['required']">'Name' is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="invoice.controls?.['count'] as count">
+        <mat-label>Count</mat-label>
+        <input matInput name="count" formControlName="count" type="number" />
+        <mat-error *ngIf="count.errors?.['min']">Min 1</mat-error>
+        <mat-error *ngIf="count.errors?.['max']">Max 100</mat-error>
+        <mat-error *ngIf="count.errors?.['required']">'Count' is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="invoice.controls?.['price'] as price">
+        <mat-label>Price</mat-label>
+        <input matInput name="price" formControlName="price" type="number" />
+        <mat-error *ngIf="price.errors?.['min']">Min 1</mat-error>
+        <mat-error *ngIf="price.errors?.['max']">Max 1000000</mat-error>
+        <mat-error *ngIf="price.errors?.['required']">'Price' is required</mat-error>
+      </mat-form-field>
+
+      <button mat-icon-button matTooltip="Remove item" color="primary" (click)="removeInvoice(i)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="padding">
+    <button mat-button color="primary" (click)="addNewInvoice()">
+      <mat-icon>add</mat-icon>
+      Add new item
+    </button>
+  </div>
+
+  <div class="padding">
+    <button mat-flat-button color="primary" (click)="submitForm($event)">Submit</button>
+  </div>
+</form>
