@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Component } from '@angular/core';
 import { CompanyDetailsHttpService } from '../services/company-details-http.service';
 import { CompanyDetails, Invoice } from '../shared';
 
@@ -10,7 +10,9 @@ import { CompanyDetails, Invoice } from '../shared';
 })
 export class PreviewInvoiceComponent {
   constructor(private companyDetailsHttpService: CompanyDetailsHttpService) {}
+
   companyDetails$: Observable<CompanyDetails> =
     this.companyDetailsHttpService.fetchCompanyDetails();
+
   invoices: Invoice[] = window.history.state.invoices;
 }

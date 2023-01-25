@@ -10,12 +10,9 @@ import { Router } from '@angular/router';
 export class NewInvoiceComponent {
   constructor(private fb: FormBuilder, private router: Router) {}
 
-  public invoiceForm = this.fb.group(
-    {
-      invoices: this.fb.array([this.buildInvoiceRow()])
-    },
-    { updateOn: 'submit' }
-  );
+  public invoiceForm = this.fb.group({
+    invoices: this.fb.array([this.buildInvoiceRow()])
+  });
 
   get invoicesArr(): FormArray<FormGroup> {
     return this.invoiceForm.controls.invoices;
@@ -30,7 +27,7 @@ export class NewInvoiceComponent {
   }
 
   public submitForm(event: Event): void {
-    console.log(this.invoicesArr.controls[0].controls['name'].errors);
+    event.preventDefault();
     if (this.invoiceForm.valid) {
       this.router.navigate(['preview'], { state: { invoices: this.invoicesArr.getRawValue() } });
     }
